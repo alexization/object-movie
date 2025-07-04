@@ -7,11 +7,19 @@ export class DiscountCondition {
     private _id: number;
     private _policyId: number;
     private _conditionType: ConditionType;
-    private _dayOfWeek: Date;
-    private _startTime: Date;
-    private _endTime: Date;
-    private _sequence: number;
-    constructor(id: number, policyId: number, conditionType: ConditionType, dayOfWeek: Date, startTime: Date, endTime: Date, sequence: number) {
+    private _dayOfWeek: number | null;
+    private _startTime: number | null;
+    private _endTime: number | null;
+    private _sequence: number | null;
+    constructor(
+        policyId: number,
+        conditionType: ConditionType,
+        dayOfWeek: number | null,
+        startTime: number | null,
+        endTime: number | null,
+        sequence: number | null,
+        id: number = 0
+    ) {
         this._id = id;
         this._policyId = policyId;
         this._conditionType = conditionType;
@@ -41,19 +49,19 @@ export class DiscountCondition {
         return this._conditionType;
     }
 
-    get dayOfWeek(): Date {
+    get dayOfWeek(): number | null {
         return this._dayOfWeek;
     }
 
-    get startTime(): Date {
+    get startTime(): number | null {
         return this._startTime;
     }
 
-    get endTime(): Date {
+    get endTime(): number | null {
         return this._endTime;
     }
 
-    get sequence(): number {
+    get sequence(): number | null {
         return this._sequence;
     }
 }

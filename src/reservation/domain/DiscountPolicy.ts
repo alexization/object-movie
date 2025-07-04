@@ -10,9 +10,9 @@ export class DiscountPolicy {
     private _movieId: number;
     private _policyType: PolicyType;
     private _amount: Money;
-    private _percent: number;
+    private _percent: number | null;
 
-    constructor(id: number, movieId: number, policyType: PolicyType, amount: Money, percent: number) {
+    constructor(movieId: number, policyType: PolicyType, amount: Money, percent: number | null, id: number = 0) {
         this._id = id;
         this._movieId = movieId;
         this._policyType = policyType;
@@ -44,7 +44,7 @@ export class DiscountPolicy {
         return this._amount;
     }
 
-    get percent(): number {
+    get percent(): number | null {
         return this._percent;
     }
 }

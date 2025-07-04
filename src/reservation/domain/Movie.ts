@@ -6,7 +6,7 @@ export class Movie {
     private _runningTime: number;
     private _fee: Money;
 
-    constructor(id: number, title: string, runningTime: number, fee: Money) {
+    constructor(title: string, runningTime: number, fee: Money, id: number = 0) {
         this._id = id;
         this._title = title;
         this._runningTime = runningTime;
