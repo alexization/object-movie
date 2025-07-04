@@ -1,34 +1,29 @@
-// @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
+import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import globals from 'globals';
 
-export default tseslint.config(
-  {
-    ignores: ['eslint.config.mjs'],
-  },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended,
-  {
-    languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-      },
-      sourceType: 'commonjs',
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
+export default [
+    // 1. 전역적으로 무시할 파일 설정
+    {
+        ignores: ['dist/']
     },
-  },
-  {
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
-    },
-  },
-);
+
+    // 2. 기본 ESLint 및 TypeScript 추천 규칙 적용
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
+
+    // 3. 프로젝트별 세부 규칙 및 환경 설정
+    {
+        languageOptions: {
+            globals: {
+                ...globals.node // env: { node: true }
+            }
+        },
+        rules: {
+            // 기존 rules 설정
+            '@typescript-eslint/no-explicit-any': 'off',
+            '@typescript-eslint/triple-slash-reference': ['error', { path: 'always' }],
+            'no-useless-escape': 'off'
+        }
+    }
+];
